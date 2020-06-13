@@ -1,5 +1,5 @@
-import Vue, { PluginObject } from 'vue';
-declare const VueHead: PluginObject<{}>;
+import Vue, { App } from 'vue';
+declare const VueHead: (Vue: App) => void;
 export = VueHead;
 interface TitleOptions {
   inner?: string;
@@ -71,7 +71,7 @@ interface ElementOptions extends Object {
   body?: boolean;
 }
 declare module 'vue/types/options' {
-  interface ComponentOptions<V extends Vue> {
+  interface ComponentOptions<V extends object> {
     head?: {
       title?: TitleOptions | (() => TitleOptions);
       meta?: ElementOptions[] | (() => ElementOptions[]);
