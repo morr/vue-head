@@ -210,9 +210,26 @@
       util.undoTitle(diffTitle)
       util.undo()
     }
-
+    // v3
+    if (!Vue.version || Vue.version.match(/[3].(.)+/g)) {
+      Vue.mixin({
+        created: function () {
+          var self = this
+          self.$on && self.$on('updateHead', function () {
+            init.call(this, true)
+            util.update()
+          })
+        },
+        mounted: function () {
+          init.call(this)
+        },
+        beforeUnmount: function () {
+          destroy.call(this)
+        }
+      })
+    }
     // v1
-    if (Vue.version.match(/[1].(.)+/g)) {
+    else if (Vue.version.match(/[1].(.)+/g)) {
       Vue.mixin({
         ready: function () {
           init.call(this)
@@ -229,7 +246,7 @@
       })
     }
     // v2
-    if (Vue.version.match(/[2].(.)+/g)) {
+    else if (Vue.version.match(/[2].(.)+/g)) {
       Vue.mixin({
         created: function () {
           var self = this
@@ -248,7 +265,7 @@
     }
   }
 
-  VueHead.version = '2.2.0'
+  VueHead.version = '3.0.0'
 
   // auto install
   if (typeof Vue !== 'undefined') {
