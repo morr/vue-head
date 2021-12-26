@@ -97,8 +97,15 @@
     title: function (obj) {
       if (!obj) return
       diffTitle.before = opt.complement
-      var title = obj.inner + ' ' + (obj.separator || opt.separator) +
-        ' ' +  (obj.complement || opt.complement)
+
+      var complement = obj.complement === '' ?
+        obj.complement :
+        (obj.complement || opt.complement)
+      var separator = obj.separator === '' ?
+        obj.separator :
+        (obj.separator || opt.separator)
+      var title = obj.inner + ' ' + separator + ' ' + complement
+
       window.document.title = title.trim()
     },
 

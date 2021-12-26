@@ -94,7 +94,14 @@
     title (val) {
       if (!val) return
       diffTitle.before = opt.complement
-      let title = `${val.inner} ${val.separator || opt.separator} ${val.complement || opt.complement}`
+      const complement = obj.complement === '' ?
+        obj.complement :
+        (obj.complement || opt.complement)
+      const separator = obj.separator === '' ?
+        obj.separator :
+        (obj.separator || opt.separator)
+
+      const title = `${val.inner} ${separator} ${complement}`
       window.document.title = title.trim()
     },
 
